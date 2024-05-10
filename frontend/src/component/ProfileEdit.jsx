@@ -48,8 +48,8 @@ function ProfileEdit() {
         return;
       }
       const response = await axios.patch(
-        `https://blog-cards.up.railway.app/profile/update/${blogID}` || `http://localhost:3000/profile/update/${blogID}`,
-        // `http://localhost:3000/update/${blogID}`,
+        `https://blog-cards.up.railway.app/profile/update/${userId}` || `http://localhost:3000/profile/update/${userId}`,
+        // `http://localhost:3000/update/${userId}`,
         formData
       );
       const data = response.data;
