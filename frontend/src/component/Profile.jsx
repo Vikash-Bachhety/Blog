@@ -83,10 +83,11 @@ function Profile() {
   return (
     <div className="flex flex-wrap justify-center w-full gap-y-10 gap-x-20 py-10 min-h-screen bg-gray-900">
       <div className="w-11/12 h-20 -mt-10 flex justify-between items-center pb-2 border-b border-slate-600">
-        <div className="light flex items-end gap-4 w-auto py-1 mt-2 px-4 rounded-2xl bg-slate-700">
+        <div 
+        onClick={()=>{profileClick(userData._id)}}
+        className="light flex items-end gap-4 w-auto py-1 mt-2 px-4 rounded-2xl bg-slate-700 cursor-pointer">
           <img
             src={`https://blog-cards.up.railway.app/images/${userData.profilePic}`}
-            onClick={()=>{profileClick(userData._id)}}
             // src={`http://localhost:3000/images/${userData.profilePic}`}
             className="xl:h-12 xl:w-12 w-10 h-10 rounded-full object-cover"
             alt="profilePic"

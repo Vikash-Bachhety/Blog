@@ -22,7 +22,7 @@
 
 @keyframes light {
   from {
-    box-shadow: 0 0 12px rgb(235, 133, 133);
+    box-shadow: 0 0 8px rgb(235, 133, 133);
   }
   to {
     box-shadow: 0 0 2px rgb(72, 138, 251);
