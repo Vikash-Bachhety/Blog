@@ -8,7 +8,7 @@ import CreateBlog from "./component/CreateBlog.jsx";
 import Profile from "./component/Profile.jsx";
 import ProfileEdit from "./component/ProfileEdit.jsx";
 import Edit from "./component/Edit.jsx";
-import AllUsers from "./component/AllUsers.jsx";
+import AllBlogs from "./component/AllBlogs.jsx";
 import Authentication from "./component/Authenticate.jsx";
 
 const router = createBrowserRouter([
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <AllUsers />,
+        element: <AllBlogs />,
       },
       {
         path: "/profile",

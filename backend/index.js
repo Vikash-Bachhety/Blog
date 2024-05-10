@@ -180,7 +180,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/allusers", async (req, res) => {
+app.get("/allblogs", async (req, res) => {
   const users = await Blog.find({}).populate("author");
   // console.log(users);
   res.send(users);

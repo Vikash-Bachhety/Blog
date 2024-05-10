@@ -2,24 +2,31 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./index.css";
+import HashLoader from "react-spinners/HashLoader";
 
-function AllUsers() {
+function AllBlogs() {
   const [userData, setUserData] = useState([]);
   const [selectedUserData, setSelectedUser] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`https://blog-cards.up.railway.app/allusers` || `http://localhost:3000/allusers`);
-        // const response = await axios.get(`http://localhost:3000/allusers`);
+        const response = await axios.get(
+          `https://blog-cards.up.railway.app/allblogs` ||
+            `http://localhost:3000/allblogs`
+        );
+        // const response = await axios.get(`http://localhost:3000/allblogs`);
         const data = response.data.reverse();
+        setIsLoading(false);
         setUserData(data);
         console.log(data);
       } catch (error) {
         console.log(error);
       }
     }
-    fetchData();
+      fetchData()
+    
   }, []);
 
   const handleClick = (user) => {
@@ -51,13 +58,23 @@ function AllUsers() {
         </Link>
       </div>
       <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-20 lg:mt-10 w-11/12">
-        <h1 className="text-gray-200 md:text-6xl font-semibold text-4xl">Blog-cards</h1>
+        <h1 className="text-gray-200 md:text-6xl font-semibold text-4xl">
+          Blog-cards
+        </h1>
         <p className="text-slate-200 md:text-lg text-sm w-4/5 md:w-full text-center lg:text-left">
           Craft your unique digital cards and discover a world of creativity
           from others.
         </p>
       </div>
       <div className="flex flex-wrap justify-center w-full gap-10 py-6 min-h-screen">
+        <div className="flex justify-center items-center h-[55vh]">
+        {isLoading && (
+          <HashLoader
+            color="#36d7b7"
+            size={100}
+          />
+        )}
+        </div>
         {Array.isArray(userData) &&
           userData.map((user) => (
             <li key={user._id} onClick={() => handleClick(user)}>
@@ -69,7 +86,9 @@ function AllUsers() {
                   alt="User Profile"
                 />
                 <div className="px-4 py-1 h-36 overflow-hidden">
-                  <p className="text-gray-800 font-semibold text-xl mb-2 normal-case truncate">{user.title}</p>
+                  <p className="text-gray-800 font-semibold text-xl mb-2 normal-case truncate">
+                    {user.title}
+                  </p>
                   <p className="text-gray-700 mb-2 text-md overflow-hidden">
                     {user.content}
                   </p>
@@ -92,22 +111,33 @@ function AllUsers() {
               <p className="cursor-pointer text-xs mt-2 text-gray-500">
                 Created: {selectedUserData.updatedAt.split("T")[0]}{" "}
               </p>
-              <p className="mt-2 text-sm md:text-lg lg:text-xl font-thin"><b className="font-semibold text-gray-800">Author: </b> 
-                 {selectedUserData.author.name}{" "}
+              <p className="mt-2 text-sm md:text-lg lg:text-xl font-thin">
+                <b className="font-semibold text-gray-800">Author: </b>
+                {selectedUserData.author.name}{" "}
               </p>
               <p className="cursor-pointer text-sm md:text-lg lg:text-xl font-medium">
                 {selectedUserData.author.email}
               </p>
               <p className="cursor-pointer text-sm md:text-lg lg:text-xl font-medium">
-              {selectedUserData.city}{" "}
+                {selectedUserData.city}{" "}
               </p>
             </div>
             <div
               id="main"
               className="flex flex-col xl:w-1/2 text-gray-700 font-thin mt-4 mb-2 text-xl tracking-wide pr-2 xl:overflow-auto"
             >
-             <p className="text-sm sm:text-lg md:text-xl mb-2 font-medium sm:font-normal tracking-wider"><b className="font-bold sm:font-semibold text-gray-800">Title: </b>  {selectedUserData.title}</p>
-             <p className="text-sm sm:text-lg md:text-xl mb-2 font-medium sm:font-normal tracking-wider"><b className="font-bold sm:font-semibold text-gray-800">Blog: </b>  {selectedUserData.content}</p>
+              <p className="text-sm sm:text-lg md:text-xl mb-2 font-medium sm:font-normal tracking-wider">
+                <b className="font-bold sm:font-semibold text-gray-800">
+                  Title:{" "}
+                </b>{" "}
+                {selectedUserData.title}
+              </p>
+              <p className="text-sm sm:text-lg md:text-xl mb-2 font-medium sm:font-normal tracking-wider">
+                <b className="font-bold sm:font-semibold text-gray-800">
+                  Blog:{" "}
+                </b>{" "}
+                {selectedUserData.content}
+              </p>
             </div>
           </div>
           <button
@@ -122,4 +152,4 @@ function AllUsers() {
   );
 }
 
-export default AllUsers;
+export default AllBlogs;
