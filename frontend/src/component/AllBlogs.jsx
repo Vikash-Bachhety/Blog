@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./index.css";
-import HashLoader from "react-spinners/HashLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 function AllBlogs() {
   const [userData, setUserData] = useState([]);
@@ -67,11 +67,11 @@ function AllBlogs() {
         </p>
       </div>
       <div className="flex flex-wrap justify-center w-full min-h-screen mt-8 md:mt-0">
-        <div className="flex justify-center items-center h-[55vh]">
+        <div className="flex justify-center mt-36 md:mt-40">
         {isLoading && (
-          <HashLoader
+          <PacmanLoader
             color="#36d7b7"
-            size={100}
+            size={30}
           />
         )}
         </div>
