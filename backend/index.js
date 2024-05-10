@@ -294,7 +294,7 @@ app.get("/profileEdit/:id", async (req, res) => {
   }
 });
 
-app.patch("/update/:id", upload.single("profileFile"), async (req, res) => {
+app.patch("/profile/update/:id", upload.single("profileFile"), async (req, res) => {
   try {
     // console.log("Update route ID: ", req.params.id);
     const userId = req.params.id;
