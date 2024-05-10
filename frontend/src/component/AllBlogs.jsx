@@ -46,18 +46,18 @@ function AllBlogs() {
           <input
             type="button"
             value="Login"
-            className="w-24 px-4 py-2 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none"
+            className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none"
           />
         </Link>
         <Link to="/signup">
           <input
             type="button"
             value="Signup"
-            className="w-24 px-4 py-2 text-md font-semibold text-white bg-green-500 rounded-md hover:bg-green-700 cursor-pointer focus:outline-none"
+            className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-green-500 rounded-md hover:bg-green-700 cursor-pointer focus:outline-none"
           />
         </Link>
       </div>
-      <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-20 lg:mt-10 w-11/12">
+      <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-16 lg:mt-10 w-11/12">
         <h1 className="text-gray-200 md:text-6xl font-semibold text-4xl">
           Blog-cards
         </h1>
@@ -66,7 +66,7 @@ function AllBlogs() {
           from others.
         </p>
       </div>
-      <div className="flex flex-wrap justify-center w-full gap-10 py-6 min-h-screen">
+      <div className="flex flex-wrap justify-center w-full min-h-screen mt-8 md:mt-0">
         <div className="flex justify-center items-center h-[55vh]">
         {isLoading && (
           <HashLoader
@@ -78,7 +78,7 @@ function AllBlogs() {
         {Array.isArray(userData) &&
           userData.map((user) => (
             <li key={user._id} onClick={() => handleClick(user)}>
-              <div className="w-80 h-[380px] cursor-pointer overflow-hidden mx-4 bg-slate-200 hover:shadow-lg hover:shadow-white rounded-lg mt-6 transition duration-500 transform hover:scale-105">
+              <div className="w-80 sm:w-96 h-[380px] cursor-pointer overflow-hidden mx-0 sm:mx-4 bg-slate-200 hover:shadow-lg hover:shadow-white rounded-lg mt-6 transition duration-500 transform hover:scale-105">
                 <img
                   className="w-full h-60 p-1 object-cover object-top-center rounded-t-lg"
                   src={`https://blog-cards.up.railway.app/images/${user.blogPic}`}
@@ -99,11 +99,11 @@ function AllBlogs() {
       </div>
       {selectedUserData && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-95 flex justify-center items-center">
-          <div className="relative flex flex-col xl:flex-row xl:justify-around bg-slate-100 rounded-lg p-3 sm:p-6 w-11/12 xl:w-3/4 h-4/5 xl:h-2/3 text-lg sm:text-lg gap-y-1 sm:gap-y-2 font-sans overflow-auto">
-            <div className="w-full xl:w-1/2 flex flex-col items-start">
+          <div className="relative flex flex-col xl:flex-row xl:justify-around bg-slate-100 rounded-lg p-3 sm:p-3.5 w-11/12 xl:w-2/3 h-4/5 xl:h-3/4 text-lg sm:text-lg gap-y-1 sm:gap-y-2 font-sans overflow-auto">
+            <div className="w-full xl:w-1/2 xl:pt-4 xl:pr-4 flex flex-col items-start">
               {" "}
               <img
-                className="w-full h-60 xl:pr-4 object-cover object-center rounded-lg"
+                className="w-full h-60 md:h-80 xl:h-96 object-cover object-center rounded-lg"
                 src={`https://blog-cards.up.railway.app/images/${selectedUserData.blogPic}`}
                 // src={`http://localhost:3000/images/${selectedUserData.blogPic}`}
                 alt="User Profile"
@@ -115,10 +115,10 @@ function AllBlogs() {
                 <b className="font-semibold text-gray-800">Author: </b>
                 {selectedUserData.author.name}{" "}
               </p>
-              <p className="cursor-pointer text-sm md:text-lg lg:text-xl font-medium">
+              <p className="cursor-pointer text-sm lg:text-lg">
                 {selectedUserData.author.email}
               </p>
-              <p className="cursor-pointer text-sm md:text-lg lg:text-xl font-medium">
+              <p className="cursor-pointer text-sm lg:text-lg">
                 {selectedUserData.city}{" "}
               </p>
             </div>
