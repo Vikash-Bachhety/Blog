@@ -124,7 +124,7 @@ function Profile() {
           </Link>
         </div>
       </div>
-      <div>
+      <div className="flex flex-wrap gap-10 justify-center w-full h-auto"> 
         {isLoading ? (
           <FadeLoader color="#36d7b7" size={40} />
         ) : (
