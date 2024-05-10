@@ -84,7 +84,7 @@ function AllUsers() {
             <div className="w-full xl:w-1/2 flex flex-col items-start">
               {" "}
               <img
-                className="w-full h-60 xl:p-1 object-cover object-center rounded-lg"
+                className="w-full h-60 xl:pr-4 object-cover object-center rounded-lg"
                 src={`https://blog-cards.up.railway.app/images/${selectedUserData.blogPic}`}
                 // src={`http://localhost:3000/images/${selectedUserData.blogPic}`}
                 alt="User Profile"
