@@ -96,12 +96,12 @@ function Edit() {
                 setTitle(e.target.value);
               }}
             />
-            <p className="text-gray-700 text-md capitalize">{userData.city}</p>
+            <p className="text-gray-700 text-md">{userData.city}</p>
             <input
               type="text"
               className="w-full px-3 py-1 mb-1 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="New city"
-              name="newEmail"
+              name="newCity"
               value={city}
               onChange={(e) => {
                 setcity(e.target.value);

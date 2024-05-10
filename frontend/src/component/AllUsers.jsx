@@ -80,7 +80,7 @@ function AllUsers() {
       </div>
       {selectedUserData && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-95 flex justify-center items-center">
-          <div className="relative flex flex-col xl:flex-row xl:justify-around bg-slate-100 rounded-lg p-3 sm:p-6 w-11/12 xl:w-1/2 h-4/5 xl:h-2/3 text-lg sm:text-lg gap-y-1 sm:gap-y-2 font-sans overflow-auto">
+          <div className="relative flex flex-col xl:flex-row xl:justify-around bg-slate-100 rounded-lg p-3 sm:p-6 w-11/12 xl:w-3/4 h-4/5 xl:h-2/3 text-lg sm:text-lg gap-y-1 sm:gap-y-2 font-sans overflow-auto">
             <div className="w-full xl:w-1/2 flex flex-col items-start">
               {" "}
               <img

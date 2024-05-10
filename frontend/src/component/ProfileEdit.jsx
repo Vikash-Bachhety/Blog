@@ -94,7 +94,7 @@ function ProfileEdit() {
                 setName(e.target.value);
               }}
             />
-            <p className="text-gray-700 text-md capitalize">{userData.email}</p>
+            <p className="text-gray-700 text-md">{userData.email}</p>
             <input
               type="text"
               className="w-full px-3 py-1 mb-1 border rounded-md focus:outline-none focus:border-blue-500"
