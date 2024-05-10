@@ -67,11 +67,11 @@ function Edit() {
   return (
     <div className="flex flex-wrap justify-center w-full items-center gap-10 py-10 min-h-screen bg-gray-900">
       {userData && (
-        <div className="w-80 h-1/2 mx-4 bg-slate-100 shadow-lg rounded-lg hover:shadow-xl transition duration-500">
+        <div className="w-96 sm:w-1/2 lg:w-1/2 h-1/2 mx-4 bg-slate-100 shadow-lg rounded-lg hover:shadow-xl transition duration-500">
           
           <div className="flex flex-col gap-2 px-4 justify-center">
           <img
-            className="w-full h-60 p-1 object-cover object-center rounded-t-lg"
+            className="w-full h-60 mt-3 object-cover object-center border border-black rounded-t-lg"
             src={`https://blog-cards.up.railway.app/images/${userData.blogPic}`}
             // src={`http://localhost:3000/images/${userData.blogPic}`}
             alt="User Profile"
@@ -108,9 +108,11 @@ function Edit() {
               }}
             />
             <p className="text-gray-700 text-md">{userData.content}</p>
-            <input
+            <textarea
+            id="main"
               type="text"
               className="w-full px-3 py-1 mb-2 border rounded-md focus:outline-none focus:border-blue-500"
+              rows={5}
               placeholder="New content"
               name="newContent"
               value={content}

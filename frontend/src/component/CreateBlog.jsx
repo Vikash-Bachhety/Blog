@@ -58,7 +58,7 @@ function CreateBlog() {
 
   return (
     <div className="flex justify-center w-full items-center min-h-screen bg-gray-900">
-      <div className="max-w-md mx-4 px-2 bg-slate-100 shadow-lg rounded-lg overflow-hidden">
+      <div className="max-w-xl w-11/12 md:w-full mx-4 px-2 bg-slate-100 shadow-lg rounded-lg overflow-hidden">
         <form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
@@ -85,7 +85,7 @@ function CreateBlog() {
             onBlur={(e)=> setInput({ ...input, title: e.target.value.trim() })}
             placeholder="Blog title"
             required
-            className="w-full px-3 py-2 mb-3 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 mb-3 border rounded-md focus:outline-none focus:border-blue-500 whitespaces-pre"
           />
 
           <label
@@ -110,6 +110,7 @@ function CreateBlog() {
             value={input.content}
             onChange={(e) => setInput({ ...input, content: e.target.value })}
             onBlur={(e)=> setInput({ ...input, content: e.target.value.trim() })}
+            rows="6"
             placeholder="Write your content"
             required
             className="w-full px-3 py-2 mb-3 border rounded-md focus:outline-none focus:border-blue-500"
