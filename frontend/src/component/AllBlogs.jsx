@@ -3,11 +3,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./index.css";
 import PacmanLoader from "react-spinners/PacmanLoader";
+// import { BsSearch } from "react-icons/bs";
+import blog from "../assets/blog.png"
 
 function AllBlogs() {
   const [userData, setUserData] = useState([]);
   const [selectedUserData, setSelectedUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -25,8 +28,7 @@ function AllBlogs() {
         console.log(error);
       }
     }
-      fetchData()
-    
+    fetchData();
   }, []);
 
   const handleClick = (user) => {
@@ -41,7 +43,9 @@ function AllBlogs() {
 
   return (
     <div className="flex flex-col flex-wrap justify-center w-full bg-slate-900 items-center py-5 min-h-screen bg-gray-100">
-      <div className="w-11/12 flex gap-5 justify-end items-center pb-4 border-b border-slate-600">
+      <div className="w-11/12 flex gap-5 justify-between items-center pb-4 border-b border-slate-600">
+        <img src={blog} alt="blog cards" className="h-10 w-10 md:h-16 md:w-16 cursor-not-allowed" />
+        <div className="w-full flex gap-5 justify-end items-center">
         <Link to="/login">
           <input
             type="button"
@@ -56,8 +60,20 @@ function AllBlogs() {
             className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-green-500 rounded-md hover:bg-green-700 cursor-pointer focus:outline-none"
           />
         </Link>
+        </div>
       </div>
-      <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-16 lg:mt-10 w-11/12">
+      <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-10 w-11/12">
+        <div class="flex gap-5 items-center w-11/12 md:w-1/2 lg:w-1/3 mx-auto">
+          <input
+            type="search"
+            placeholder="search blog title"
+            value={search}
+            onChange={(e)=>{setSearch(e.target.value)}}
+            class="w-full px-4 py-2 rounded-lg border border-gray-500 bg-slate-800 focus:outline-none hover:border-blue-500 placeholder-gray-200 text-gray-200 focus:ring-0.5 focus:ring-blue-500 cursor-pointer"
+          />
+          {/* <BsSearch className="w-12 h-12 text-blue-200 hover:text-cyan-400 transform hover:translate-x-1 transition duration-500 ease-in-out" /> */}
+        </div>
+
         <h1 className="text-gray-200 md:text-6xl font-semibold text-4xl">
           Blog-cards
         </h1>
@@ -68,19 +84,16 @@ function AllBlogs() {
       </div>
       <div className="flex flex-wrap justify-center w-full min-h-screen mt-8 md:mt-0">
         <div className="flex justify-center mt-36 md:mt-40">
-        {isLoading && (
-          <PacmanLoader
-            color="#36d7b7"
-            size={30}
-          />
-        )}
+          {isLoading && <PacmanLoader color="#36d7b7" size={30} />}
         </div>
         {Array.isArray(userData) &&
-          userData.map((user) => (
-            <li key={user._id} onClick={() => handleClick(user)}>
-              <div className="w-80 sm:w-96 h-[380px] cursor-pointer overflow-hidden mx-0 sm:mx-4 bg-slate-200 hover:shadow-lg hover:shadow-white rounded-lg mt-6 transition duration-500 transform hover:scale-105">
+          userData.filter((data)=> (
+            search.toLowerCase() === "" ? data : data.title.toLowerCase().includes(search)
+          )).map((user) => (
+            <li className="list-none m-2" key={user._id} onClick={() => handleClick(user)}>
+              <div className="w-80 sm:w-72 h-[350px] cursor-pointer overflow-hidden mx-0 sm:mx-4 bg-slate-200 hover:shadow-md hover:shadow-white rounded-lg mt-6 transition duration-700 transform hover:scale-105">
                 <img
-                  className="w-full h-60 p-1 object-cover object-top-center rounded-t-lg"
+                  className="w-full h-52 p-1 object-cover object-top-center rounded-t-lg"
                   src={`https://blog-cards.up.railway.app/images/${user.blogPic}`}
                   // src={`http://localhost:3000/images/${user.blogPic}`}
                   alt="User Profile"
@@ -108,17 +121,17 @@ function AllBlogs() {
                 // src={`http://localhost:3000/images/${selectedUserData.blogPic}`}
                 alt="User Profile"
               />
-              <p className="cursor-pointer text-xs mt-2 text-gray-500">
+              <p className="text-xs mt-2 text-gray-500">
                 Created: {selectedUserData.updatedAt.split("T")[0]}{" "}
               </p>
               <p className="mt-2 text-sm md:text-lg lg:text-xl font-thin">
                 <b className="font-semibold text-gray-800">Author: </b>
                 {selectedUserData.author.name}{" "}
               </p>
-              <p className="cursor-pointer text-sm lg:text-lg">
+              <p className="text-sm lg:text-lg">
                 {selectedUserData.author.email}
               </p>
-              <p className="cursor-pointer text-sm lg:text-lg">
+              <p className="text-sm lg:text-lg">
                 {selectedUserData.city}{" "}
               </p>
             </div>
