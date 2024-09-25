@@ -14,7 +14,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-const allowedOrigins = ['https://blog-with-cards.vercel.app','http://localhost:5173'];
+const allowedOrigins = ["https://blog-with-cards.vercel.app"];
 // const allowedOrigins = ["http://localhost:5173"];
 
 app.use(cors(allowedOrigins));
@@ -36,7 +36,7 @@ const upload = multer({ storage });
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 const secretkey = process.env.SECRET_KEY;
 
@@ -74,40 +74,45 @@ const connection = async () => {
 
 connection();
 
-const userschema = new mongoose.Schema({
-  profilePic: {
-    type: String,
-    default: "https://avatar.iran.liara.run/public",
-  },
-  name: String,
-  email: String,
-  password: String,
-  contact: String,
-  blogs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Blog",
-      default: [],
+const userschema = new mongoose.Schema(
+  {
+    profilePic: {
+      type: String,
+      default: "https://avatar.iran.liara.run/public",
     },
-  ],
-},
-{timeStamps:true});
+    name: String,
+    email: String,
+    password: String,
+    contact: String,
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog",
+        default: [],
+      },
+    ],
+  },
+  { timeStamps: true }
+);
 
 const User = mongoose.model("User", userschema);
 
-const blogschema = new mongoose.Schema({
-  blogPic: {
-    type: String,
-    default: "",
+const blogschema = new mongoose.Schema(
+  {
+    blogPic: {
+      type: String,
+      default: "",
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    title: String,
+    city: String,
+    content: String,
   },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  title: String,
-  city: String,
-  content: String,
-}, {timestamps:true});
+  { timestamps: true }
+);
 
 const Blog = mongoose.model("Blog", blogschema);
 
@@ -248,9 +253,8 @@ app.patch("/update/:id", upload.single("blogFile"), async (req, res) => {
     // console.log("Update route ID: ", req.params.id);
     const blogId = req.params.id;
     const { title, city, content } = req.body;
-    const blogPic = req.file.filename; 
+    const blogPic = req.file.filename;
     console.log(req.file);
-
 
     if (!blogPic && !title && !city && !content) {
       return res.status(400).send("No fields provided for update");
@@ -294,45 +298,48 @@ app.get("/profileEdit/:id", async (req, res) => {
   }
 });
 
-app.patch("/profile/update/:id", upload.single("profileFile"), async (req, res) => {
-  try {
-    // console.log("Update route ID: ", req.params.id);
-    const userId = req.params.id;
-    const { name, email, contact } = req.body;
-    const profilePic = req.file.filename; 
-    console.log(req.file);
+app.patch(
+  "/profile/update/:id",
+  upload.single("profileFile"),
+  async (req, res) => {
+    try {
+      // console.log("Update route ID: ", req.params.id);
+      const userId = req.params.id;
+      const { name, email, contact } = req.body;
+      const profilePic = req.file.filename;
+      console.log(req.file);
 
+      if (!profilePic && !name && !email && !contact) {
+        return res.status(400).send("No fields provided for update");
+      }
 
-    if (!profilePic && !name && !email && !contact) {
-      return res.status(400).send("No fields provided for update");
+      const updatedprofileFields = {};
+      if (profilePic) updatedprofileFields.profilePic = profilePic;
+      if (name) updatedprofileFields.name = name;
+      if (email) updatedprofileFields.email = email;
+      if (contact) updatedprofileFields.contact = contact;
+      const updatedprofile = await User.findByIdAndUpdate(
+        userId,
+        {
+          ...(profilePic && { profilePic }),
+          ...(name && { name }),
+          ...(email && { email }),
+          ...(contact && { contact }),
+        },
+        { new: true }
+      );
+
+      if (!updatedprofile) {
+        return res.status(404).send("User not found");
+      }
+
+      res.send(updatedprofile);
+    } catch (error) {
+      console.log("Error in profile route:", error);
+      res.status(500).send("Error in profile route");
     }
-
-    const updatedprofileFields = {};
-    if (profilePic) updatedprofileFields.profilePic = profilePic;
-    if (name) updatedprofileFields.name = name;
-    if (email) updatedprofileFields.email = email;
-    if (contact) updatedprofileFields.contact = contact;
-    const updatedprofile = await User.findByIdAndUpdate(
-      userId,
-      {
-        ...(profilePic && { profilePic }),
-        ...(name && { name }),
-        ...(email && { email }),
-        ...(contact && { contact }),
-      },
-      { new: true }
-    );
-
-    if (!updatedprofile) {
-      return res.status(404).send("User not found");
-    }
-
-    res.send(updatedprofile);
-  } catch (error) {
-    console.log("Error in profile route:", error);
-    res.status(500).send("Error in profile route");
   }
-});
+);
 
 app.delete("/delete/:id", async (req, res) => {
   try {
