@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./index.css";
 import PacmanLoader from "react-spinners/PacmanLoader";
 // import { BsSearch } from "react-icons/bs";
-import blog from "../assets/blog.png"
+import blog from "../assets/blog.png";
 
 function AllBlogs() {
   const [userData, setUserData] = useState([]);
@@ -44,22 +44,26 @@ function AllBlogs() {
   return (
     <div className="flex flex-col flex-wrap justify-center w-full bg-slate-900 items-center py-5 min-h-screen bg-gray-100">
       <div className="w-11/12 flex gap-5 justify-between items-center pb-4 border-b border-slate-600">
-        <img src={blog} alt="blog cards" className="h-10 w-10 md:h-16 md:w-16 cursor-not-allowed" />
+        <img
+          src={blog}
+          alt="blog cards"
+          className="h-10 w-10 md:h-16 md:w-16 cursor-not-allowed"
+        />
         <div className="w-full flex gap-5 justify-end items-center">
-        <Link to="/login">
-          <input
-            type="button"
-            value="Login"
-            className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none"
-          />
-        </Link>
-        <Link to="/signup">
-          <input
-            type="button"
-            value="Signup"
-            className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-green-500 rounded-md hover:bg-green-700 cursor-pointer focus:outline-none"
-          />
-        </Link>
+          <Link to="/login">
+            <input
+              type="button"
+              value="Login"
+              className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none"
+            />
+          </Link>
+          <Link to="/signup">
+            <input
+              type="button"
+              value="Signup"
+              className="md:w-24 px-3 py-1 md:px-4 md:py-2 text-md font-semibold text-white bg-green-500 rounded-md hover:bg-green-700 cursor-pointer focus:outline-none"
+            />
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-y-5 lg:gap-y-6 mt-10 w-11/12">
@@ -68,7 +72,9 @@ function AllBlogs() {
             type="search"
             placeholder="search blog title"
             value={search}
-            onChange={(e)=>{setSearch(e.target.value)}}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
             class="w-full px-4 py-2 rounded-lg border border-gray-500 bg-slate-800 focus:outline-none hover:border-blue-500 placeholder-gray-200 text-gray-200 focus:ring-0.5 focus:ring-blue-500 cursor-pointer"
           />
           {/* <BsSearch className="w-12 h-12 text-blue-200 hover:text-cyan-400 transform hover:translate-x-1 transition duration-500 ease-in-out" /> */}
@@ -87,28 +93,36 @@ function AllBlogs() {
           {isLoading && <PacmanLoader color="#36d7b7" size={30} />}
         </div>
         {Array.isArray(userData) &&
-          userData.filter((data)=> (
-            search.toLowerCase() === "" ? data : data.title.toLowerCase().includes(search)
-          )).map((user) => (
-            <li className="list-none m-2" key={user._id} onClick={() => handleClick(user)}>
-              <div className="w-80 sm:w-72 h-[350px] cursor-pointer overflow-hidden mx-0 sm:mx-4 bg-slate-200 hover:shadow-md hover:shadow-white rounded-lg mt-6 transition duration-700 transform hover:scale-105">
-                <img
-                  className="w-full h-52 p-1 object-cover object-top-center rounded-t-lg"
-                  src={`https://blog-cards.up.railway.app/images/${user.blogPic}`}
-                  // src={`http://localhost:3000/images/${user.blogPic}`}
-                  alt="User Profile"
-                />
-                <div className="px-4 py-1 h-36 overflow-hidden">
-                  <p className="text-gray-800 font-semibold text-xl mb-2 normal-case truncate">
-                    {user.title}
-                  </p>
-                  <p className="text-gray-700 mb-2 text-md overflow-hidden">
-                    {user.content}
-                  </p>
+          userData
+            .filter((data) =>
+              search.toLowerCase() === ""
+                ? data
+                : data.title.toLowerCase().includes(search)
+            )
+            .map((user) => (
+              <li
+                className="list-none m-2"
+                key={user._id}
+                onClick={() => handleClick(user)}
+              >
+                <div className="w-80 sm:w-72 h-[350px] cursor-pointer overflow-hidden mx-0 sm:mx-4 bg-slate-200 hover:shadow-md hover:shadow-white rounded-lg mt-6 transition duration-700 transform hover:scale-105">
+                  <img
+                    className="w-full h-52 p-1 object-cover object-top-center rounded-t-lg"
+                    src={`https://blog-cards.up.railway.app/images/${user.blogPic}`}
+                    // src={`http://localhost:3000/images/${user.blogPic}`}
+                    alt="User Profile"
+                  />
+                  <div className="px-4 py-1 h-36 overflow-hidden">
+                    <p className="text-gray-800 font-semibold text-xl mb-2 normal-case truncate">
+                      {user.title}
+                    </p>
+                    <p className="text-gray-700 mb-2 text-md overflow-hidden">
+                      {user.content}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))}
       </div>
       {selectedUserData && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-95 flex justify-center items-center">
@@ -131,9 +145,7 @@ function AllBlogs() {
               <p className="text-sm lg:text-lg">
                 {selectedUserData.author.email}
               </p>
-              <p className="text-sm lg:text-lg">
-                {selectedUserData.city}{" "}
-              </p>
+              <p className="text-sm lg:text-lg">{selectedUserData.city} </p>
             </div>
             <div
               id="main"
