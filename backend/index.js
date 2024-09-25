@@ -14,11 +14,19 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-const allowedOrigins = ['https://blog-with-cards.vercel.app','http://localhost:5173'];
-// const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ['https://blog-with-cards.vercel.app', 'http://localhost:5173'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow credentials
+};
 
-app.use(cors(allowedOrigins));
-
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
