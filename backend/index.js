@@ -188,7 +188,7 @@ app.get("/allblogs", async (req, res) => {
 
 app.post("/createBlog", upload.single("blogFile"), async (req, res) => {
   const { title, city, content } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   const userId = req.body.userId;
 
   if (!req.file) {
