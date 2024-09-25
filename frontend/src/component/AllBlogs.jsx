@@ -16,8 +16,9 @@ function AllBlogs() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `https://blog-cards.up.railway.app/allblogs` ||
-            `http://localhost:3000/allblogs`
+          `https://blog-cards.up.railway.app/allblogs`
+          // ||
+          //   `http://localhost:3000/allblogs`
         );
         // const response = await axios.get(`http://localhost:3000/allblogs`);
         const data = response.data.reverse();
