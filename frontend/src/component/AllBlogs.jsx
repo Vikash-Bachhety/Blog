@@ -16,7 +16,8 @@ function AllBlogs() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `https://blog-cards.up.railway.app/allblogs`
+          // `https://blog-cards.up.railway.app/allblogs`
+          `https://blog-cards.choreoapps.dev/allblogs`
           // ||
           //   `http://localhost:3000/allblogs`
         );
